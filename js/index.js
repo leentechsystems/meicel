@@ -75,3 +75,48 @@ $(document).ready(function() {
 
     });
 });
+
+
+document.addEventListener("deviceready", onDeviceReady, false);
+document.addEventListener("offline", onOffline, false);
+// document.addEventListener('loadstart', function(event) { alert('start: ' + event.url); });
+// document.addEventListener('loadstop', function(event) { alert('stop: ' + event.url); });
+// document.addEventListener('loaderror', function(event) { alert('error: ' + event.message); });
+// document.addEventListener('exit', function(event) { alert(event.type); });
+// PhoneGap is loaded and it is now safe to make calls PhoneGap methods
+//
+function onDeviceReady() {
+    //document.addEventListener("offline", onOffline, false);
+    document.addEventListener("online", onOnline, false);
+}
+
+function onOffline() {
+    // alert('No Internet Connection!');
+    $("body").addClass('reload');
+    $("#loader").addClass('hide');
+    $("#message").removeClass('hide');
+    $("#main_message").text('No Internet Connection');
+    $("#sub_message").text('Tap to Retry');
+    $("#main_message").removeClass('hide');
+    $("#sub_message").removeClass('hide');
+}
+
+function onOnline() {
+    $("body").removeClass('reload');
+    $("#loader").removeClass('hide');
+    $("#message").addClass('hide');
+    $("#main_message").addClass('hide');
+    $("#sub_message").addClass('hide');
+    //navigator.device.overrideBackButton();
+    setTimeout(function(){
+             $(location).attr('href','http://m.meiceljewelry.com/');
+      }, 3000);
+}
+
+
+$(document).ready(function() {
+    $('body.reload').click(function() {
+        location.reload();
+        alert('Reload');
+    });
+});
